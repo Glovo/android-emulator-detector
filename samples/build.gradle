@@ -14,7 +14,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.framgia.example.emulatordetector"
+        applicationId "com.glovoapp.emulatordetector"
         minSdkVersion 15
         targetSdkVersion 30
         versionCode 1
