@@ -24,7 +24,10 @@ class EmulatorDetector private constructor(private val context: Context) {
     var isCheckPackage = true
         private set
 
-    private val mListPackageName: MutableList<String> = mutableListOf()
+    val packageNameList: List<String>
+        get() = packageNames
+
+    private val packageNames: MutableList<String> = mutableListOf()
 
     fun setDebug(isDebug: Boolean): EmulatorDetector {
         this.isDebug = isDebug
@@ -42,19 +45,16 @@ class EmulatorDetector private constructor(private val context: Context) {
     }
 
     fun addPackageName(pPackageName: String): EmulatorDetector {
-        mListPackageName.add(pPackageName)
+        packageNames.add(pPackageName)
         return this
     }
 
-    fun addPackageName(pListPackageName: List<String>): EmulatorDetector {
-        mListPackageName.addAll(pListPackageName)
+    fun addPackageName(packageNames: List<String>): EmulatorDetector {
+        this.packageNames.addAll(packageNames)
         return this
     }
 
-    val packageNameList: List<String>
-        get() = mListPackageName
-
-    fun detect(pOnEmulatorDetectorListener: OnEmulatorDetectorListener?) {
+    fun detect(pOnEmulatorDetectorListener: OnEmulatorDetectorListener) {
         Thread(Runnable {
             val isEmulator = detect()
             log("This System is Emulator: $isEmulator")
@@ -112,15 +112,16 @@ class EmulatorDetector private constructor(private val context: Context) {
                 || checkQEmuDrivers()
                 || checkFiles(PIPES, "Pipes")
                 || checkIp()
-                || checkQEmuProps() && checkFiles(X86_FILES, "X86"))
+                || checkQEmuProps()
+                && checkFiles(X86_FILES, "X86"))
     }
 
     private fun checkPackageName(): Boolean {
-        if (!isCheckPackage || mListPackageName.isEmpty()) {
+        if (!isCheckPackage || packageNames.isEmpty()) {
             return false
         }
         val packageManager = context.packageManager
-        for (pkgName in mListPackageName) {
+        for (pkgName in packageNames) {
             val tryIntent = packageManager.getLaunchIntentForPackage(pkgName)
             if (tryIntent != null) {
                 val resolveInfos = packageManager.queryIntentActivities(tryIntent, PackageManager.MATCH_DEFAULT_ONLY)
@@ -365,9 +366,8 @@ class EmulatorDetector private constructor(private val context: Context) {
 
         @SuppressLint("StaticFieldLeak") //Since we use application context now this won't leak memory anymore. This is only to please Lint
         private lateinit var mEmulatorDetector: EmulatorDetector
-        fun with(pContext: Context?): EmulatorDetector {
-            requireNotNull(pContext) { "Context must not be null." }
-            if (::mEmulatorDetector.isInitialized) mEmulatorDetector = EmulatorDetector(pContext.applicationContext)
+        fun with(context: Context): EmulatorDetector {
+            if (!::mEmulatorDetector.isInitialized) mEmulatorDetector = EmulatorDetector(context.applicationContext)
             return mEmulatorDetector
         }
 
@@ -384,8 +384,8 @@ class EmulatorDetector private constructor(private val context: Context) {
     }
 
     init {
-        mListPackageName.add("com.google.android.launcher.layouts.genymotion")
-        mListPackageName.add("com.bluestacks")
-        mListPackageName.add("com.bignox.app")
+        packageNames.add("com.google.android.launcher.layouts.genymotion")
+        packageNames.add("com.bluestacks")
+        packageNames.add("com.bignox.app")
     }
 }
