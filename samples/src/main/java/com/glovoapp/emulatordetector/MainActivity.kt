@@ -1,7 +1,6 @@
 package com.glovoapp.emulatordetector
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -19,21 +18,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkWith(telephony: Boolean) {
-        EmulatorDetector.with(this)
+        val isEmulator = EmulatorDetector.with(this)
                 .setCheckTelephony(telephony)
                 .setDebug(com.glovoapp.emulatordetector.BuildConfig.DEBUG)
-                .detect(object : OnEmulatorDetectorListener {
-                    override fun onResult(isEmulator: Boolean) {
-                        runOnUiThread {
-                            if (isEmulator) {
-                                textView?.text = ("This device is emulator$checkInfo")
-                            } else {
-                                textView?.text = ("This device is not emulator$checkInfo")
-                            }
-                        }
-                        Log.d(javaClass.name, "Running on emulator --> $isEmulator")
-                    }
-                })
+                .detect()
+//                .detect(object : OnEmulatorDetectorListener {
+//                    override fun onResult(isEmulator: Boolean) {
+//                        runOnUiThread {
+//                            if (isEmulator) {
+//                                textView?.text = ("This device is emulator$checkInfo")
+//                            } else {
+//                                textView?.text = ("This device is not emulator$checkInfo")
+//                            }
+//                        }
+//                        Log.d(javaClass.name, "Running on emulator --> $isEmulator")
+//                    }
+//                })
+        if (isEmulator) {
+            textView?.text = ("This device is emulator$checkInfo")
+        } else {
+            textView?.text = ("This device is not emulator$checkInfo")
+        }
     }
 
     fun showDeniedForCamera() {

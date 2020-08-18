@@ -62,7 +62,7 @@ class EmulatorDetector private constructor(private val context: Context) {
         }).start()
     }
 
-    private fun detect(): Boolean {
+    fun detect(): Boolean {
         var result = false
         log(deviceInfo)
         if (!result) { // Check Basic
@@ -81,23 +81,23 @@ class EmulatorDetector private constructor(private val context: Context) {
     }
 
     private fun checkBasic(): Boolean {
-        var result = (Build.FINGERPRINT.startsWith("generic") == true
-                || Build.MODEL.contains("google_sdk") == true
+        var result = (Build.FINGERPRINT.startsWith("generic")
+                || Build.MODEL.contains("google_sdk")
                 || Build.MODEL.toLowerCase().contains("droid4x")
-                || Build.MODEL.contains("Emulator") == true
-                || Build.MODEL.contains("Android SDK built for x86") == true
-                || Build.MANUFACTURER.contains("Genymotion") == true
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
                 || Build.HARDWARE == "goldfish"
                 || Build.HARDWARE == "vbox86"
                 || Build.PRODUCT == "sdk"
                 || Build.PRODUCT == "google_sdk"
                 || Build.PRODUCT == "sdk_x86"
                 || Build.PRODUCT == "vbox86p"
-                || Build.BOARD.toLowerCase().contains("nox") == true
-                || Build.BOOTLOADER.toLowerCase().contains("nox") == true
-                || Build.HARDWARE.toLowerCase().contains("nox") == true
-                || Build.PRODUCT.toLowerCase().contains("nox") == true
-                || Build.SERIAL.toLowerCase().contains("nox") == true)
+                || Build.BOARD.toLowerCase().contains("nox")
+                || Build.BOOTLOADER.toLowerCase().contains("nox")
+                || Build.HARDWARE.toLowerCase().contains("nox")
+                || Build.PRODUCT.toLowerCase().contains("nox")
+                || Build.SERIAL.toLowerCase().contains("nox"))
         if (result) return true
         result = result or (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
         if (result) return true
