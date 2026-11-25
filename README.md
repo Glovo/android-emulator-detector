@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📚 android-emulator-detector
+# android-emulator-detector
 
 **Android library (Kotlin) that flags emulators from build, file, telephony and package signals · sync · callback**
 
@@ -9,14 +9,13 @@ Glovo fork of [framgia/android-emulator-detector](https://github.com/framgia/and
 converted to Kotlin and moved to AndroidX, and it ships through JitPack. It is a heuristic yes/no
 built from known emulator fingerprints. It is not a root, tamper or fraud detector, and it is not a service.
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.3.72-7F52FF?logo=kotlin&logoColor=white)](build.gradle)
-[![Android Gradle Plugin](https://img.shields.io/badge/Android_Gradle_Plugin-4.0.1-3DDC84?logo=android&logoColor=white)](build.gradle)
-[![Gradle](https://img.shields.io/badge/Gradle-6.1.1-02303A?logo=gradle&logoColor=white)](gradle/wrapper/gradle-wrapper.properties)
-[![Android](https://img.shields.io/badge/Android-minSdk_8_%C2%B7_target_30-3DDC84?logo=android&logoColor=white)](library/build.gradle)
+[![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)](build.gradle)
+[![Android Gradle Plugin](https://img.shields.io/badge/Android_Gradle_Plugin-3DDC84?logo=android&logoColor=white)](build.gradle)
+[![Gradle](https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white)](gradle/wrapper/gradle-wrapper.properties)
+[![Android](https://img.shields.io/badge/Android-minSdk_8_%C2%B7_target-3DDC84?logo=android&logoColor=white)](library/build.gradle)
 <br/>
-[![JitPack](https://img.shields.io/badge/JitPack-1.5.2-blue)](#adding-an-emulator-check-to-an-app)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue)](LICENSE)
-[![test files](https://img.shields.io/badge/test_files-0-lightgrey)](#contributing--conventions)
+[![JitPack](https://img.shields.io/badge/JitPack-blue)](#adding-an-emulator-check-to-an-app)
+[![License](https://img.shields.io/badge/License-Apache-blue)](LICENSE)
 
 </div>
 
@@ -50,9 +49,9 @@ it to Kotlin under `com.glovoapp.emulatordetector`, enabled AndroidX and release
 the latest emulator versions and combine them with statistics from its own projects, and that the
 project drew on ideas from other projects.
 
-| Module | Role | Published ✅/— |
+| Module | Role | Published /— |
 |---|---|---|
-| [`library`](library) | The detector: `EmulatorDetector`, `OnEmulatorDetectorListener` | ✅ JitPack AAR |
+| [`library`](library) | The detector: `EmulatorDetector`, `OnEmulatorDetectorListener` | JitPack AAR |
 | [`samples`](samples) | Demo app that shows the result, the telephony flag and the device info | — |
 
 | | |
@@ -278,7 +277,7 @@ The history shows this flow for 1.5.0 to 1.5.2:
 
 ```text
 android-emulator-detector/
-├── library/                              ⭐ the published AAR
+├── library/                              source of truth: the published AAR
 │   ├── build.gradle                      # versionName 1.5.2, minSdk 8, AndroidX compileOnly
 │   └── src/main/
 │       ├── AndroidManifest.xml           # package still com.framgia.android.emulator
